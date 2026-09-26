@@ -47,16 +47,6 @@ dnf install -y thermald
 
 dnf install -y intel-media-driver
 
-dnf install -y kmail
-
-# Calendar/contacts/tasks stack (EPEL)
-dnf install -y \
-    merkuro \
-    korganizer \
-    kaddressbook \
-    kdepim-runtime \
-    kdepim-addons
-
 systemctl enable thermald.service
 
 # enable fwupd service

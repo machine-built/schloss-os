@@ -4,7 +4,7 @@ PODMAN = $(SUDO) podman
 
 IMAGE_NAME ?= localhost/myimage
 CONTAINER_FILE ?= ./Dockerfile
-VARIANT ?= gnome
+VARIANT ?= kde
 PLATFORM = linux/amd64
 IMAGE_CONFIG ?= ./iso.toml\
 
