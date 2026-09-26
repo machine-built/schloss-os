@@ -6,7 +6,7 @@ IMAGE_NAME ?= localhost/myimage
 CONTAINER_FILE ?= ./Dockerfile
 VARIANT ?= kde
 PLATFORM = linux/amd64
-IMAGE_CONFIG ?= ./iso.toml\
+IMAGE_CONFIG ?= ./iso.toml
 
 
 IMAGE_TYPE ?= iso
