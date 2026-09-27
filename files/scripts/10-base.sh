@@ -3,16 +3,24 @@
 set -xeuo pipefail
 
 mkdir -p /var/lib/rpm-state
+
+dnf install -y 'dnf-command(config-manager)' epel-release
+dnf config-manager --set-enabled crb
+
+# EPEL ships it's own epel-release package, let's make sure we've got that one
+# We've got to do it this way because the package is named differently in x86_64_v2
+dnf upgrade -y $(dnf repoquery --installed --qf '%{name}' --whatprovides epel-release)
+
 # Import RPM Fusion keys
-dnf install -y distribution-gpg-keys
-rpmkeys --import \
-    /usr/share/distribution-gpg-keys/rpmfusion/RPM-GPG-KEY-rpmfusion-free-el-$(rpm -E %rhel) \
-    /usr/share/distribution-gpg-keys/rpmfusion/RPM-GPG-KEY-rpmfusion-nonfree-el-$(rpm -E %rhel)
+# dnf install -y distribution-gpg-keys
+# rpmkeys --import \
+#     /usr/share/distribution-gpg-keys/rpmfusion/RPM-GPG-KEY-rpmfusion-free-el-$(rpm -E %rhel) \
+#     /usr/share/distribution-gpg-keys/rpmfusion/RPM-GPG-KEY-rpmfusion-nonfree-el-$(rpm -E %rhel)
 
 # 3. Add RPM Fusion free + nonfree for EL10
-dnf --setopt=localpkg_gpgcheck=1 install -y \
-      https://mirrors.rpmfusion.org/free/el/rpmfusion-free-release-$(rpm -E %rhel).noarch.rpm \
-      https://mirrors.rpmfusion.org/nonfree/el/rpmfusion-nonfree-release-$(rpm -E %rhel).noarch.rpm
+# dnf --setopt=localpkg_gpgcheck=1 install -y \
+#       https://mirrors.rpmfusion.org/free/el/rpmfusion-free-release-$(rpm -E %rhel).noarch.rpm \
+#       https://mirrors.rpmfusion.org/nonfree/el/rpmfusion-nonfree-release-$(rpm -E %rhel).noarch.rpm
 
 dnf install -y plasma-login-manager
 
@@ -46,6 +54,8 @@ systemctl enable oddjobd.service sssd.service
 dnf install -y thermald
 
 dnf install -y intel-media-driver
+
+dnf install -y system-reinstall-bootc
 
 systemctl enable thermald.service
 
