@@ -53,7 +53,7 @@ systemctl enable oddjobd.service sssd.service
 
 dnf install -y thermald
 
-dnf install -y intel-media-driver
+# dnf install -y intel-media-driver
 
 dnf install -y system-reinstall-bootc
 
